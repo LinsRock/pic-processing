@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="shortcut icon" href="../static/favicon.ico" type="image/x-icon">
+  <style>
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background: #f1f1f1;
+      width: 200px;
+    }
+
+    .accordion li {
+      margin-bottom: 10px;
+    }
+
+    .accordion .link {
+      padding: 5px 15px 5px 45px;
+      background: aqua;
+    }
+
+    .accordion li.open .link {
+      color: yellow;
+    }
+
+    .accordion .submenu {
+      width: 200px;
+      height: 100px;
+      background: blueviolet;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="oImg" src="../static/img/img1.jpg" alt="">
+  <img class="img" src="" alt="">
+  <input id="file" type="file" name="file">
+
+  <ul>
+    <li>
+      <ul class="accordion">
+        <li>
+          <div class="link">标题1</div>
+          <div class="submenu">块1</div>
+        </li>
+        <li>
+          <div class="link">标题2</div>
+          <div class="submenu">块2</div>
+        </li>
+        <li>
+          <div class="link">标题3</div>
+          <div class="submenu">块3</div>
+        </li>
+        <li>
+          <div class="link">标题4</div>
+          <div class="submenu">块4</div>
+        </li>
+      </ul>
+    </li>
+    <li>22</li>
+    <li>33</li>
+  </ul>
+
+
+  <a href="/G:/pycode/flask-project/app/templates/img/img1.jpg" download="img">图片下载</a>
+  <button class="down">下载</button>
+
+  <script src="../static/js/jquery-3.2.1.js"></script>
+  <script>
+    var oImg = document.getElementById('oImg');
+    var file = document.querySelector('#file');
+    var img = document.querySelector('.img');
+    file.onchange = function () {
+      var file = this.files[0];
+      var cover = new FormData();
+      cover.append('cover', file);
+      console.log(cover);
+      if (window.FileReader) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        //文件读取结束后
+        reader.onloadend = function (event) {
+          //console.log(event.target.result)
+          img.setAttribute('src', event.target.result)
+        }
+      }
+    }
+    file.addEventListener
+
+    // 下载文件方法
+    var funDownload = function (domImg, filename) {
+      // 创建隐藏的可下载链接
+      var eleLink = document.createElement('a');
+      eleLink.download = filename;
+      eleLink.style.display = 'none';
+      // 图片转base64地址
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      /*  var width = domImg.naturalWidth;
+       var height = domImg.naturalHeight;     */
+      context.drawImage(domImg, 0, 0);
+      // 如果是PNG图片，则canvas.toDataURL('image/png')
+      eleLink.href = canvas.toDataURL('image/jpeg');
+      // 触发点击
+      document.body.appendChild(eleLink);
+      eleLink.click();
+      // 然后移除
+      document.body.removeChild(eleLink);
+    };
+
+    var downBtn = document.querySelector('.down');
+
+    downBtn.onclick = function () {
+      var image = new Image;
+      image.src = '../static/img/img1.jpg';
+
+      image.onload = function () {
+
+      }
+      funDownload('img/img1.jpg', 'img');
+    }
+
+    function getObjectURL(file) {
+      let url = null;
+      if (window.createObjectURL != undefined) { // basic
+        url = window.createObjectURL(file);
+      } else if (window.webkitURL != undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file);
+      } else if (window.URL != undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file);
+      }
+      return url;
+    }
+
+    
+
+    function Accordion(el, multiple) {
+      this.el = el || {};
+      this.multiple = multiple || false;
+
+      // 所有的link
+      let links = this.el.find('.link');
+      // 添加点击事件
+      console.log(this.dropdown)
+      links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+    }
+    Accordion.prototype.dropdown = function (e) {
+      let $el = e.data.el,
+        $this = $(this),
+        $next = $this.next();
+
+      $next.slideToggle();
+      $this.parent().toggleClass('open');
+
+      if (!e.data.multiple) {
+        $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+      };
+    }
+
+    
+
+
+
+  </script>
+</body>
+
+</html>

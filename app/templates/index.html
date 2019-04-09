@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>数字图像处理系统</title>
+  <link rel="shortcut icon" href="../static/favicon.ico">
+  <link rel="stylesheet" href="../static/style/index.css">
+  <link rel="stylesheet" href="../static/style/sliderStyle.css">
+  <link rel="stylesheet" href="../static/font/css/font-awesome.min.css">
+</head>
+
+<body>
+  <div class="header">
+    <div class="logo-wrap">
+      <h1>
+        <img src="static/img/logo1.png" />
+      </h1>
+    </div>
+    <div class="menu">
+      <ul class="menu-list">
+        <li class="menu-item open-file">
+          <a href="javascript:;" class="menu-btn" title="导入图片">
+            <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+            <input id="upload-btn" type="file" name="file"
+              accept="image/png, image/gif, image/jpg, image/bmp, image/jpeg" />
+            导入
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:;" class="menu-btn" id="del-btn" title="移除图片">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+            移除
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="javascript:;" class="menu-btn" id="save-btn" title="保存处理后的图片">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            保存
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content-wrapper">
+    <div class="controller-wrapper">
+      <div class="l-nav">
+        <ul>
+          <li>
+            <a href="javascript:;" data-num='1' class="nav-item active">
+              <i class="fa fa-magic" aria-hidden="true"></i>
+              图像预处理
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" data-num='3' class="nav-item">
+              <i class="fa fa-gavel" aria-hidden="true"></i>
+              形态学操作
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" data-num='2' class="nav-item">
+              <i class="fa fa-eercast" aria-hidden="true"></i>
+              图像滤波
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" data-num='4' class="nav-item">
+              <i class="fa fa-scissors" aria-hidden="true"></i>
+              边缘检测
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" data-num='5' class="nav-item">
+              <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+              轮廓提取
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="l-nav-controller">
+        <ul class="proc-list">
+          <!-- ----------------- 图像预处理 ------------------>
+          <li class="active">
+            <ul class="img-pre-accordion accordion">
+              <li>
+                <div class="link">图像加噪<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu noise-section select-wrapper clearfix">
+                  <!--  <h3>噪声类型</h3> -->
+                  <div class="noise-main select-main">
+                    <div class="noise-set-select select-set" data-current-item="salt">
+                      <span>盐噪声</span>
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="noise-select-block select-block">
+                      <ul class="noise-list select-list">
+                        <li data-item="slat">盐噪声</li>
+                        <li data-item="pepper">椒噪声</li>
+                        <li data-item="s&p">椒盐噪声</li>
+                        <li data-item="gaussian">高斯噪声</li>
+                        <li data-item="poisson">泊松噪声</li>
+                        <li data-item="speckle">斑点噪声</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <button class="put-btn put-noise-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <div class="link">图像灰度化<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu clearfix">
+                  <button class="put-btn gray-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <div class="link">图像阈值分割<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu threshold-section select-wrapper clearfix">
+                  <div class="threshold-main select-main">
+                    <div class="threshold-set-select select-set" data-current-item="0">
+                      <span>二进制阈值化</span>
+                      <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </div>
+                    <div class="threshold-select-block select-block">
+                      <ul class="threshold-list select-list">
+                        <li data-item="0">二进制阈值化</li>
+                        <li data-item="1">反二进制阈值化</li>
+                        <li data-item="2">截断阈值化</li>
+                        <li data-item="3">反阈值化为0</li>
+                        <li data-item="4">阈值化为0</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="kernel-slider thresh-slider">
+                    <div class="slider-text">
+                      <span class="label">阈值</span>
+                      <span class="value"></span>
+                    </div>
+                    <input type="range" class="thr-slider" value="0">
+                  </div>
+                  <button class="put-btn threshold-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!------------------------- 图像滤波 ------------------------->
+          <li>
+            <div class="smoothing-section">
+              <div class="select-wrapper smoothing-type-wrap">
+                <h3>滤波类型</h3>
+                <div class="select-main smoothing-main">
+                  <div class="select-set smoothing-set" data-current-item="blur">
+                    <span>均值滤波</span>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
+                  <div class="select-block">
+                    <ul class="select-list">
+                      <li data-item="blur">均值滤波</li>
+                      <li data-item="boxFilter">方框滤波</li>
+                      <li data-item="gaussian">高斯滤波</li>
+                      <li data-item="median">中值滤波</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="smoothing-slider">
+                <div class="slider-text">
+                  <span class="label">滤波核大小</span>
+                  <span class="value"></span>
+                </div>
+                <input type="range" class="nuc-slider" value="0">
+              </div>
+              <div class="btn-wrap">
+                <button class="put-btn-green put-smoothing-btn disable-button">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>应用</span>
+                </button>
+              </div>
+            </div>
+          </li>
+          <!------------------------- 图像形态学操作 ---------------------->
+          <li>
+            <ul class="img-morphology accordion">
+              <li>
+                <div class="link">图像腐蚀<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu clearfix">
+                  <div class="kernel-slider erode-slider">
+                    <div class="slider-text">
+                      <span class="label">卷积核大小</span>
+                      <span class="value"></span>
+                    </div>
+                    <input type="range" class="k1-slider" value="0">
+                  </div>
+                  <div class="num-input-wrap erode-iteration">
+                    <span class="label">迭代次数</span>
+                    <div class="input-box">
+                      <div class="minus">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                      </div>
+                      <input type="text" class="num">
+                      <div class="add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="put-btn put-erode-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <div class="link">图像膨胀<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu clearfix">
+                  <div class="kernel-slider dilate-slider">
+                    <div class="slider-text">
+                      <span class="label">卷积核大小</span>
+                      <span class="value"></span>
+                    </div>
+                    <input type="range" class="k2-slider" value="0">
+                  </div>
+                  <div class="num-input-wrap dilate-iteration">
+                    <span class="label">迭代次数</span>
+                    <div class="input-box">
+                      <div class="minus">
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                      </div>
+                      <input type="text" class="num">
+                      <div class="add">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="put-btn put-dilate-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <div class="link">图像形态学运算<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu clearfix">
+                  <div class="select-wrapper operation-type-wrap">
+                    <div class="select-main operation-main">
+                      <div class="select-set operation-set" data-current-item="2">
+                        <span>开运算</span>
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
+                      <div class="select-block">
+                        <ul class="select-list">
+                          <li data-item="2">开运算</li>
+                          <li data-item="3">闭运算</li>
+                          <li data-item="4">梯度运算</li>
+                          <li data-item="5">顶帽操作</li>
+                          <li data-item="6">黑帽操作</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="kernel-slider operation-slider">
+                    <div class="slider-text">
+                      <span class="label">卷积核大小</span>
+                      <span class="value"></span>
+                    </div>
+                    <input type="range" class="k3-slider" value="0">
+                  </div>
+                  <button class="put-btn put-operation-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!------------------------- 图像边缘检测 ------------------->
+          <li>
+            <ul class="edge-section accordion">
+              <li>
+                <div class="link">梯度计算<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu clearfix">
+                  <div class="radio-btn-wrap">
+                    <h3>算子类型</h3>
+                    <ul>
+                      <li data-item="sobel" class="current">Sobel算子</li>
+                      <li data-item="scharr">Scharr算子</li>
+                      <li data-item="laplacian">Laplacion算子</li>
+                    </ul>
+                  </div>
+                  <button class="put-btn-green put-edge-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <div class="link">Canny边缘检测<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                <div class="submenu">
+                  <div class="canny-arg-wrap">
+                    <div class="text-input clearfix">
+                      <span title="图像梯度小于阈值1认为不是边缘">阈值1</span>
+                      <input type="text" class="threshold-val1" value="120">
+                    </div>
+                    <div class="text-input clearfix">
+                      <span title="图像梯度大于阈值2认为是边缘">阈值2</span>
+                      <input type="text" class="threshold-val2" value="200">
+                    </div>
+                  </div>
+                  <button class="put-btn-green put-canny-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>应用</span>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <div>
+
+
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="img-show-wrapper">
+      <div class="l-box">
+        <h3 class="img-title master-title">原图</h3>
+        <div class="img-content">
+          <h4 class="img-name master-name"></h4>
+          <div class="img-wrap master-wrapper"></div>
+          <div class="img-size master-size"></div>
+        </div>
+      </div>
+      <div class="r-box">
+        <h3 class="img-title processing-title">处理后的图片</h3>
+        <div class="img-content">
+          <h4 class="img-name processing-name"></h4>
+          <div class="img-wrap processing-wrapper"></div>
+          <div class="img-size processing-size"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p class="hint">
+      <i aria-hidden="true"></i>
+      <span></span>
+    </p>
+  </div>
+
+  <script src="static/js/jquery-3.2.1.js"></script>
+  <script src="static/js/rangeSlider.js"></script>
+  <script src="static/js/accordion.js"></script>
+  <script src="static/js/index.js"></script>
+</body>
+
+</html>
