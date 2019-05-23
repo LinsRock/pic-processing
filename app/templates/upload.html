@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <style>
+    .pic-box {
+      width: 800px;
+      margin: 100px auto 0;
+      border: 1px solid #000;
+    }
+
+    .pic-box img {
+      width: 120px;
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
+
 <body>
-    <form method="POST" action="http://localhost:5000/upload_image" enctype="multipart/form-data">
-      <input type="file" name="file" id="browse-btn" />
-      <input id="upload-btn" type="submit" value="上传">
-    </form>
+  <form method="POST" action="http://localhost:5000/upload_image" enctype="multipart/form-data">
+    <input type="file" multiple name="file" id="browse-btn" />
+    <input id="upload-btn" type="submit" value="上传">
+  </form>
+
+  <div class="pic-box">
+
+  </div>
+
+  <script src="../static/js/jquery-3.2.1.js"></script>
+  <script>
+    $('#browse-btn').bind('change', function () {
+      if (this.value) {
+        let files = this.files;
+        for(var i=0; i<files.length; i++ ){
+          showImg(files[i], $('.pic-box')[0]);
+        }
+      }
+    });
+
+    function showImg(file, imgBox) {
+      if (window.FileReader) {
+        var reader = new FileReader();
+      } else {
+        alert('你的设备不支持图片显示，请使用chrome浏览器查看');
+      }
+      var uploadImg = file;
+      //图片读取完成时
+      reader.onload = function (event) {
+        var image = new Image();
+        //图片在页面上加载完时
+        image.onload = function () {
+          //让图片居中
+          //imgCenter(image, imgBox);
+          //添加图片信息
+          
+          //添加成功信息
+         
+        }
+        image.className = 'master-img';
+        image.src = event.target.result;
+        imgBox.append(image);
+      };
+      reader.readAsDataURL(uploadImg)
+    }
+
+  </script>
 </body>
+
 </html>

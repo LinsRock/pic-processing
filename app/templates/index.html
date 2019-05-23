@@ -14,7 +14,7 @@
   <div class="header">
     <div class="logo-wrap">
       <h1>
-        <img src="static/img/logo1.png" />
+        <img src="static/img/logo.png" />
       </h1>
     </div>
     <div class="menu">
@@ -76,6 +76,18 @@
               轮廓提取
             </a>
           </li>
+          <li>
+            <a href="javascript:;" data-num="6" class="nav-item">
+              <i class="fa fa-cogs" aria-hidden="true"></i>
+              齿轮检测
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" data-num="7" class="nav-item">
+              <i class="fa fa-object-group" aria-hidden="true"></i>
+              轴测量
+            </a>
+          </li>
         </ul>
       </div>
       <div class="l-nav-controller">
@@ -86,7 +98,6 @@
               <li>
                 <div class="link">图像加噪<i class="fa fa-caret-right" aria-hidden="true"></i></div>
                 <div class="submenu noise-section select-wrapper clearfix">
-                  <!--  <h3>噪声类型</h3> -->
                   <div class="noise-main select-main">
                     <div class="noise-set-select select-set" data-current-item="salt">
                       <span>盐噪声</span>
@@ -103,6 +114,10 @@
                       </ul>
                     </div>
                   </div>
+                  <button class="put-btn preview-btn preview-noise-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn put-noise-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -143,6 +158,10 @@
                     </div>
                     <input type="range" class="thr-slider" value="0">
                   </div>
+                  <button class="put-btn preview-btn preview-threshold-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn threshold-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -179,6 +198,10 @@
                 <input type="range" class="nuc-slider" value="0">
               </div>
               <div class="btn-wrap">
+                <button class="put-btn preview-btn preview-smoothing-btn disable-button">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>预览</span>
+                </button>
                 <button class="put-btn-green put-smoothing-btn disable-button">
                   <i class="fa fa-spinner fa-pulse"></i>
                   <span>应用</span>
@@ -211,6 +234,10 @@
                       </div>
                     </div>
                   </div>
+                  <button class="put-btn preview-btn preview-erode-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn put-erode-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -239,6 +266,10 @@
                       </div>
                     </div>
                   </div>
+                  <button class="put-btn preview-btn preview-dilate-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn put-dilate-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -272,6 +303,10 @@
                     </div>
                     <input type="range" class="k3-slider" value="0">
                   </div>
+                  <button class="put-btn preview-btn preview-operation-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn put-operation-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -291,9 +326,13 @@
                     <ul>
                       <li data-item="sobel" class="current">Sobel算子</li>
                       <li data-item="scharr">Scharr算子</li>
-                      <li data-item="laplacian">Laplacion算子</li>
+                      <li data-item="laplacian">Laplacian算子</li>
                     </ul>
                   </div>
+                  <button class="put-btn preview-btn preview-edge-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn-green put-edge-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -313,6 +352,10 @@
                       <input type="text" class="threshold-val2" value="200">
                     </div>
                   </div>
+                  <button class="put-btn preview-btn preview-canny-btn disable-button">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                    <span>预览</span>
+                  </button>
                   <button class="put-btn-green put-canny-btn disable-button">
                     <i class="fa fa-spinner fa-pulse"></i>
                     <span>应用</span>
@@ -321,10 +364,146 @@
               </li>
             </ul>
           </li>
+
+          <!------------------------- 图像轮廓检索 ------------------->
           <li>
             <div>
+              <ul class="contour-section accordion">
+                <li>
+                  <div class="link">轮廓检索<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                  <div class="submenu clearfix">
+                    <div class="toggle clearfix">
+                      <div class="toggle-title" title="提取所有轮廓(all)，还是只提取外轮廓(outer)">轮廓数量</div>
+                      <input type="checkbox" id="toggle-knob" class="toggle-checkbox">
+                      <label class="toggle-btn" for="toggle-knob">
+                        <span class="toggle-feature" data-label-on="all" data-label-off="outer"></span>
+                      </label>
+                    </div>
+                    <button class="put-btn preview-btn preview-contour-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>预览</span>
+                    </button>
+                    <button class="put-btn-green put-contour-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>应用</span>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <div class="link">轮廓近似<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                  <div class="submenu clearfix">
+                    <div class="epsilon-slider">
+                      <div class="slider-text">
+                        <span class="label">epsilon</span>
+                        <span class="value"></span>
+                      </div>
+                      <input type="range" class="approx-slider" value="0">
+                    </div>
+                    <button class="put-btn preview-btn preview-approx-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>预览</span>
+                    </button>
+                    <button class="put-btn-green put-approx-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>应用</span>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <div class="link">凸包<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                  <div class="submenu clearfix">
+                    <button class="put-btn preview-btn preview-convex-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>预览</span>
+                    </button>
+                    <button class="put-btn-green put-convex-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>应用</span>
+                    </button>
+                  </div>
+                </li>
+                <li>
+                  <div class="link">边界拟合<i class="fa fa-caret-right" aria-hidden="true"></i></div>
+                  <div class="submenu select-wrapper clearfix">
+                    <div class="fit-main select-main">
+                      <div class="fit-set-select select-set" data-current-item="bounding">
+                        <span>边界矩形拟合</span>
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                      </div>
+                      <div class="fit-select-block select-block">
+                        <ul class="fit-list select-list">
+                          <li data-item="bounding">边界矩形拟合</li>
+                          <li data-item="minRect">最小边界矩形拟合</li>
+                          <li data-item="minCircle">最小边界外接圆拟合</li>
+                          <li data-item="ellipse">边界椭圆拟合</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <button class="put-btn preview-btn preview-fit-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>预览</span>
+                    </button>
+                    <button class="put-btn-green put-fit-btn disable-button">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <span>应用</span>
+                    </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
 
+          <!--------------------- 齿轮参数检测 ---------------------->
+          <li>
+            <div class="gear-detection-wrap">
+              <div class="calibrate-wrap">
+                <h3 class="title">系统标定</h3>
+                <button class="put-btn-green not-disable calibrate-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>标定</span>
+                </button>
+                <div class="calibrate-info">
+                  <h4>标定结果</h4>
+                  <p>
+                    <span>标定系数(mm/px)：</span>
+                    <span class="value">--</span>
+                  </p>
+                </div>
+              </div>
+              <div class="parameter-detection">
+                <h3 class="title">参数测量</h3>
+                <button class="put-btn-green gear-detection-btn disable-button">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>参数测量</span>
+                </button>
+              </div>
+            </div>
+          </li>
 
+          <!---------------------- 轴尺寸测量 ------------------------>
+          <li>
+            <div class="shaft-detection-wrap">
+              <div class="calibrate-wrap">
+                <h3 class="title">系统标定</h3>
+                <button class="put-btn-green not-disable calibrate-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>标定</span>
+                </button>
+                <div class="calibrate-info">
+                  <h4>标定结果</h4>
+                  <p>
+                    <span>标定系数(mm/px)：</span>
+                    <span class="value">--</span>
+                  </p>
+                </div>
+              </div>
+              <div class="shaft-deection">
+                <h3 class="title">尺寸测量</h3>
+                <button class="put-btn-green shaft-detection-btn disable-button">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>尺寸测量</span>
+                </button>
+              </div>
             </div>
           </li>
         </ul>
@@ -340,12 +519,71 @@
         </div>
       </div>
       <div class="r-box">
-        <h3 class="img-title processing-title">处理后的图片</h3>
+        <h3 class="img-title processing-title">预览处理图片</h3>
         <div class="img-content">
           <h4 class="img-name processing-name"></h4>
           <div class="img-wrap processing-wrapper"></div>
           <div class="img-size processing-size"></div>
         </div>
+      </div>
+      <div class="gear-info">
+        <h3 class="title">测量结果</h3>
+        <ul class="parameter-list">
+          <li>
+            <div class="l-param">
+              <span class="label">齿顶圆半径</span>
+              <span class="value addendum"></span>
+            </div>
+            <div class="r-param">
+              <span class="label">齿数</span>
+              <span class="value teeth"></span>
+            </div>
+          </li>
+          <li>
+            <div class="l-param">
+              <span class="label">齿根圆半径</span>
+              <span class="value dedendum"></span>
+            </div>
+            <div class="r-param">
+              <span class="label">模数</span>
+              <span class="value modulus"></span>
+            </div>
+          </li>
+          <li>
+            <div class="l-param">
+              <span class="label">分度圆半径</span>
+              <span class="value reference"></span>
+            </div>
+            <div class="r-param">
+              <span class="label">齿距</span>
+              <span class="value pitch"></span>
+            </div>
+          </li>
+          <li>
+            <div class="l-param">
+              <span class="label">齿顶高</span>
+              <span class="value tooth_add"></span>
+            </div>
+            <div class="r-param">
+              <span class="label">齿根高</span>
+              <span class="value tooth_ded"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="shaft-info">
+        <h3 class="title">测量结果</h3>
+        <table class=shaft-table>
+          <thead>
+            <tr>
+              <th>轴段</th>
+              <th>轴径</th>
+              <th>轴长</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -354,6 +592,131 @@
       <i aria-hidden="true"></i>
       <span></span>
     </p>
+    <p class="copyright">
+      Copyright &copy; 2019 Cong Li
+    </p>
+  </div>
+
+  <div class="calibrate-popup">
+    <div class="popup-main">
+      <div class="calibrate-popup-header clearfix">
+        <div class="title-text">标定</div>
+        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+      </div>
+      <div class="calibrate-tabs">
+        <ul class="clearfix">
+          <li class="plate current">标定板标定</li>
+          <li class="block">量块标定</li>
+        </ul>
+      </div>
+      <div class="calibrate-nav-content">
+        <ul>
+          <li class="calibrate-plate active">
+            <div class="plate-popup-body">
+              <div class="show-calibrate-wrap">
+                <button class="put-btn-green not-disable upload-plate-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <input id="upload-plate-inp" type="file" name="file" multiple
+                    accept="image/png, image/gif, image/jpg, image/bmp, image/jpeg" />
+                  <span>选择标定图片</span>
+                </button>
+                <i class="fa fa-spinner fa-pulse plate-loading-icon" aria-hidden="true"></i>
+                <div class="plate-img-box"></div>
+              </div>
+              <div class="parameters-wrap">
+                <ul class="clearfix">
+                  <li>
+                    <label for="plate-num-m">标定板格数 M×N</label>
+                    <input type="text" id="plate-num-m">
+                    <span>×</span>
+                    <input type="text" id="plate-num-n">
+                  </li>
+                  <li>
+                    <label for="plate-ract-width">方格边长(mm)</label>
+                    <input type="text" id="plate-ract-width">
+                  </li>
+                  <li>
+                    <label for="plate-height-inp">标定高度(mm)</label>
+                    <input type="text" id="plate-height-inp">
+                  </li>
+                </ul>
+              </div>
+              <div class="calibrate-plate-result">
+                <h4 class="result-title">标定结果</h4>
+                <div class="plate-result-content">
+                  <span class="label">标定系数:</span>
+                  <span class="plate-value">--</span>
+                </div>
+              </div>
+              <div class="plate-btn-wrap">
+                <button class="put-btn not-disable plate-anew-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>重新标定</span>
+                </button>
+                <button class="put-btn not-disable plate-cancel-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>取消</span>
+                </button>
+                <button class="put-btn not-disable plate-confirm-btn">
+                  <span>开始标定</span>
+                  <i class="fa fa-spinner fa-pulse plate-confirm-icon" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="gauge-block">
+            <div class="gauge-block-body">
+              <div class="gauge-content clearfix">
+                <div class="gauge-img-wrap">
+                  <div class="show-gauge-img">
+                    <i class="fa fa-spinner fa-pulse" aria-hidden="true"></i>
+                  </div>
+                  <div class="upload-gauge-wrap">
+                    <button class="put-btn-green not-disable upload-gauge-btn">
+                      <i class="fa fa-spinner fa-pulse"></i>
+                      <input id="upload-gauge-inp" type="file" name="file"
+                        accept="image/png, image/gif, image/jpg, image/bmp, image/jpeg" />
+                      <span>选择量块图片</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="gauge-result">
+                  <h4 class="result-title">标定结果</h4>
+                  <div class="gauge-result-content">
+                    <span class="label">标定系数:</span>
+                    <span class="gauge-value">--</span>
+                  </div>
+                </div>
+              </div>
+              <div class="gauge-btn-control">
+                <button class="put-btn not-disable gauge-anew-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>重新标定</span>
+                </button>
+                <button class="put-btn not-disable gauge-cancel-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>取消</span>
+                </button>
+                <button class="put-btn not-disable gauge-confirm-btn">
+                  <i class="fa fa-spinner fa-pulse"></i>
+                  <span>开始标定</span>
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="popup-wrap">
+    <div class="popup-content">
+      <img src="" class="popup-img">
+    </div>
+    <div class="popup-close-btn">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </div>
   </div>
 
   <script src="static/js/jquery-3.2.1.js"></script>
